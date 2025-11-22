@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Tugas Koding Ella X126</title>
+  <!--
+    Personal Profile Website
+    - Single-file HTML with embedded CSS & JS
+    - Edit the placeholder text, images, and links below to personalize
+  -->
+  <style>
+    :root{
+      --bg:#f7f7fb;
+      --card:#ffffff;
+      --muted:#6b7280;
+      --accent:#6366f1; /* indigo-500 */
+      --glass: rgba(255,255,255,0.6);
+      --radius:16px;
+      color-scheme: light;
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+    }
+    [data-theme="dark"]{
+      --bg:#0b1020;
+      --card:#091127;
+      --muted:#9aa3c7;
+      --accent:#7c83ff;
+      --glass: rgba(255,255,255,0.04);
+      color-scheme: dark;
+    }
+
+    *{box-sizing:border-box}
+    html,body{height:100%;margin:0;background:linear-gradient(180deg,var(--bg),var(--card));-webkit-font-smoothing:antialiased}
+
+    /* container */
+    .wrap{max-width:1100px;margin:36px auto;padding:28px}
+
+    header{display:flex;align-items:center;justify-content:space-between;gap:16px}
+    .brand{display:flex;align-items:center;gap:14px}
+    .logo{width:56px;height:56px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#a78bfa);display:flex;align-items:center;justify-content:center;color:white;font-weight:700;font-size:18px;box-shadow:0 6px 16px rgba(99,102,241,0.12)}
+    h1{font-size:20px;margin:0}
+    .tagline{color:var(--muted);font-size:14px}
+
+    /* layout */
+    .grid{display:grid;grid-template-columns:1fr 360px;gap:22px;margin-top:20px}
+    @media (max-width:900px){.grid{grid-template-columns:1fr}}
+
+    /* card */
+    .card{background:var(--card);border-radius:var(--radius);padding:18px;box-shadow:0 8px 30px rgba(2,6,23,0.08);backdrop-filter:blur(6px)}
+
+    /* hero */
+    .hero{display:flex;gap:18px;align-items:center}
+    .avatar{width:120px;height:120px;border-radius:14px;background:linear-gradient(180deg,#fff,#f1f5ff);display:flex;align-items:center;justify-content:center;font-weight:700;font-size:28px;color:var(--accent);flex-shrink:0}
+    .hero h2{margin:0;font-size:28px}
+    .hero p{margin:6px 0 0;color:var(--muted)}
+
+    /* skills */
+    .skills{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px}
+    .skill{background:var(--glass);padding:8px 12px;border-radius:10px;font-weight:600;font-size:13px;color:var(--muted);border:1px solid rgba(0,0,0,0.03)}
+
+    /* projects */
+    .projects{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:12px}
+    @media (max-width:700px){.projects{grid-template-columns:1fr}}
+    .project{border-radius:12px;overflow:hidden;border:1px solid rgba(0,0,0,0.04);display:flex;flex-direction:column}
+    .project img{width:100%;height:140px;object-fit:cover}
+    .project .pbody{padding:12px}
+    .project h4{margin:0 0 8px}
+    .project p{margin:0;color:var(--muted);font-size:14px}
+    .project .links{margin-top:10px;display:flex;gap:8px}
+    .btn{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:10px;background:linear-gradient(90deg,transparent,transparent);border:1px solid rgba(0,0,0,0.06);text-decoration:none;color:inherit;font-weight:600}
+
+    /* contact */
+    form{display:grid;gap:10px}
+    input,textarea{padding:10px;border-radius:10px;border:1px solid rgba(0,0,0,0.06);background:transparent;color:inherit}
+    textarea{min-height:100px;resize:vertical}
+    .right-col{position:sticky;top:28px;align-self:start}
+
+    footer{margin-top:28px;text-align:center;color:var(--muted);font-size:13px}
+
+    /* small helpers */
+    .muted{color:var(--muted)}
+    .row{display:flex;align-items:center;gap:10px}
+    .secondary{font-size:13px;color:var(--muted)}
+
+    /* animations */
+    .fade-up{transform:translateY(10px);opacity:0;animation:fadeUp .6s ease forwards}
+    @keyframes fadeUp{to{transform:none;opacity:1}}
+
+    /* toggle */
+    .toggle{display:inline-flex;align-items:center;gap:8px;padding:6px;border-radius:999px;border:1px solid rgba(0,0,0,0.06);cursor:pointer}
+    .toggle .dot{width:16px;height:16px;border-radius:999px;background:var(--card);box-shadow:0 2px 6px rgba(2,6,23,0.08)}
+
+    /* accessibility focus */
+    a:focus,button:focus,input:focus,textarea:focus{outline:3px solid rgba(99,102,241,0.18);outline-offset:2px}
+
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app">
+    <header class="fade-up">
+      <div class="brand">
+        <div class="logo">RAGD</div>
+        <div>
+          <h1>Ella</h1>
+          <div class="tagline">Web developer • Designer </div>
+        </div>
+      </div>
+      <div class="row">
+        <nav class="secondary">
+          <a href="#about">About</a> · <a href="#favorites">favorites</a> · <a href="#contact">Contact</a>
+        </nav>
+        <div id="themeToggle" class="toggle" role="button" tabindex="0" aria-pressed="false" title="Toggle dark/light theme">
+          <div class="dot" id="toggleDot"></div>
+        </div>
+      </div>
+    </header>
+
+    <main class="grid">
+      <section>
+        <section class="card hero fade-up" id="about">
+          <div style="display:flex;gap:18px;align-items:center">
+            <div class="avatar" aria-hidden="true">YN</div>
+            <div>
+              <h2>Hi, im Ella. i am a student studying in St theresia Highschool.</h2>
+              <p class="muted">I build websitesfor fun with accessible UI and clean code. I love turning ideas into reality using HTML and JavaScript.</p>
+
+              <div class="skills" aria-label="skills">
+                <div class="skill">HTML</div>
+                <div class="skill">JavaScript</div>
+              </div>
+
+              <div style="margin-top:12px">
+                <a class="btn" href="#favorites">See my highlight →</a>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="card fade-up" style="margin-top:16px" id="projects">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <h3 style="margin:0">favorite</h3>
+            <div class="secondary">Selected work</div>
+          </div>
+
+          <div class="projects">
+            <article class="project">
+              <img src="img2/coding.jpeg" alt="Project screenshot" />
+              <div class="pbody">
+                <h4>coding</h4>
+                <p>Coding is the process of writing instructions for computers to perform tasks, using specific programming languages to create applications, websites, and software. It involves following the rules of a chosen language to write sequences of code, which the computer then interprets and executes. Coding is used to build everything from websites and mobile apps to complex software and can also be used to optimize processes and handle data. i started coding when i was in 6th grade and started coding again in 9th grade. i can do basic proggraming such as making websites.</p>
+              </div>
+            </article>
+
+            <article class="project">
+              <img src="img2/craf.jpg" alt="Project screenshot" />
+              <div class="pbody">
+                <h4>Crafting</h4>
+                <p>Crafting is the activity of creating or making something with skill, especially by hand.</p>
+            </article>
+
+            <article class="project">
+              <img src="img2/bake.jpg" alt="Project screenshot" />
+              <div class="pbody">
+                <h4>baking</h4>
+                <p>Cooking is the art and science of preparing food using heat to make it more palatable, digestible, nutritious, or safe. Key aspects include balancing flavors through seasoning with salt and other spices, mastering techniques like grilling or simmering, and understanding textures. Recipes vary widely from quick meals to elaborate dishes and can be found across many different cuisines and dietary styles. </p>
+              </div>
+            </article>
+
+            <article class="project">
+              <img src="img2/sculpt.jpg" alt="Project screenshot" />
+              <div class="pbody">
+                <h4>Sculpting</h4>
+                <p>Sculpting is the art of creating three-dimensional forms using various materials like clay, stone, or digital software</p>
+                </div>
+              </div>
+            </article>
+
+          </div>
+
+        </section>
+
+      </section>
+
+      <aside class="right-col">
+        <div class="card fade-up" id="contact">
+          <div style="margin-top:12px" class="secondary">
+            Or reach me on:
+            <div style="margin-top:8px">
+              <a class="btn" href="#">Whatsapp=07773270809</a>
+              <a class="btn" href="#">instagram= in.a.ellavator.__</a>
+            </div>
+          </div>
+        </div>
+
+          <div style="margin-top:10px">
+          </div>
+        </div>
+      </aside>
+
+    </main>
+
+    <footer>
+      © <span id="year"></span> Ella. Built with care.
+    </footer>
+  </div>
+
+  <script>
+    // --------------------------
+    // Small interactive behaviour
+    // --------------------------
+
+    // set year
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // theme toggle with system preference initial value
+    const root = document.documentElement;
+    const stored = localStorage.getItem('site-theme');
+    const themeToggle = document.getElementById('themeToggle');
+
+    function applyTheme(t){
+      if(t === 'dark'){
+        document.documentElement.setAttribute('data-theme','dark');
+        themeToggle.setAttribute('aria-pressed','true');
+      } else {
+        document.documentElement.removeAttribute('data-theme');
+        themeToggle.setAttribute('aria-pressed','false');
+      }
+    }
+
+    // prefer dark if system prefers
+    if(stored){
+      applyTheme(stored);
+    } else if(window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches){
+      applyTheme('dark');
+    }
+
+    themeToggle.addEventListener('click', ()=>{
+      const isDark = document.documentElement.getAttribute('data-theme') === 'dark';
+      applyTheme(isDark ? 'light' : 'dark');
+      localStorage.setItem('site-theme', isDark ? 'light' : 'dark');
+    });
+    themeToggle.addEventListener('keydown', (e)=>{ if(e.key === 'Enter' || e.key === ' ') { e.preventDefault(); themeToggle.click(); }});
+
+    // tiny form handler: demonstrates UX but does not send mail.
+    function handleSubmit(e){
+      e.preventDefault();
+      const name = document.getElementById('name').value.trim();
+      const email = document.getElementById('email').value.trim();
+      const subject = document.getElementById('subject').value.trim();
+      const message = document.getElementById('message').value.trim();
+
+      // Basic validation
+      if(!name || !email || !message){
+        alert('Please fill the required fields.');
+        return false;
+      }
+
+      // Example of sending: replace with fetch() to real endpoint or use Formspree / Netlify forms
+      console.log('Contact form submitted', {name,email,subject,message});
+      alert('Thanks ' + name + '! This demo form does not send messages. To make it live, connect it to an email service or backend.');
+      e.target.reset();
+      return false;
+    }
+
+    // small animation trigger (reveal)
+    document.addEventListener('DOMContentLoaded', ()=>{
+      document.querySelectorAll('.fade-up').forEach((el, i)=>{
+        setTimeout(()=> el.style.animationDelay = (i*80)+'ms', 0);
+      });
+    });
+
+  </script>
+</body>
+</html>
